@@ -57,4 +57,5 @@ Minimum Python version is 3.7 or higher.
 🚀 How to Run the Application: 
 
 Install dependencies:
+bash'''
 pip install -r requirements.txt
