@@ -1,0 +1,278 @@
+<!DOCTYPE html>
+<html lang="en" data-bs-theme="light">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Fruit Price Predictor</title>
+    <!-- Bootstrap 5 -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
+    <!-- Font Awesome -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <!-- Google Fonts -->
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600&display=swap" rel="stylesheet">
+    <!-- Custom CSS -->
+    <style>
+        :root {
+            --primary-color: #4338ca;
+            --gradient-start: #f5f7fa;
+            --gradient-end: #c3cfe2;
+            --card-bg: rgba(255, 255, 255, 0.9);
+            --text-color: #2d3748;
+        }
+
+        [data-bs-theme="dark"] {
+            --primary-color: #818cf8;
+            --gradient-start: #1a1b1e;
+            --gradient-end: #2d3748;
+            --card-bg: rgba(33, 37, 41, 0.9);
+            --text-color: #e2e8f0;
+        }
+
+        body {
+            font-family: 'Poppins', sans-serif;
+            background: linear-gradient(135deg, var(--gradient-start) 0%, var(--gradient-end) 100%);
+            min-height: 100vh;
+            transition: all 0.3s ease;
+        }
+
+        .card {
+            background: var(--card-bg);
+            backdrop-filter: blur(10px);
+            border-radius: 20px;
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            box-shadow: 0 8px 32px rgba(0, 0, 0, 0.1);
+            transition: all 0.3s ease;
+        }
+
+        .card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 12px 40px rgba(0, 0, 0, 0.15);
+        }
+
+        .prediction-value {
+            font-size: 3rem;
+            color: var(--primary-color);
+            font-weight: 600;
+            text-shadow: 0 0 20px rgba(67, 56, 202, 0.3);
+        }
+
+        .loading {
+            display: none;
+        }
+
+        .theme-switch {
+            position: fixed;
+            top: 20px;
+            right: 20px;
+            z-index: 1000;
+        }
+
+        .btn-theme {
+            width: 50px;
+            height: 50px;
+            border-radius: 25px;
+            background: var(--card-bg);
+            border: none;
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+            transition: all 0.3s ease;
+        }
+
+        .btn-theme:hover {
+            transform: rotate(360deg);
+        }
+
+        .form-control, .form-select {
+            border-radius: 12px;
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            background: var(--card-bg);
+            color: var(--text-color);
+        }
+
+        .btn-primary {
+            background: var(--primary-color);
+            border: none;
+            border-radius: 12px;
+            padding: 12px 24px;
+            font-weight: 600;
+            transition: all 0.3s ease;
+        }
+
+        .btn-primary:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 4px 12px rgba(67, 56, 202, 0.3);
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(20px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        .fade-in {
+            animation: fadeIn 0.5s ease forwards;
+        }
+
+        .spinner-border {
+            width: 3rem;
+            height: 3rem;
+        }
+    </style>
+</head>
+<body>
+    <!-- Theme Switch -->
+    <div class="theme-switch">
+        <button class="btn-theme" id="themeToggle">
+            <i class="fas fa-sun"></i>
+        </button>
+    </div>
+
+    <div class="container py-5">
+        <div class="row justify-content-center">
+            <div class="col-md-8">
+                <!-- Header -->
+                <div class="text-center mb-5 fade-in">
+                    <h1 class="display-4">🍎 Fruit Price Predictor</h1>
+                    <p class="lead text-muted">AI-Powered Price Prediction System</p>
+                </div>
+
+                <!-- Input Card -->
+                <div class="card mb-4 fade-in" style="animation-delay: 0.2s;">
+                    <div class="card-body p-4">
+                        <form id="predictionForm">
+                            <div class="mb-4">
+                                <label class="form-label">
+                                    <i class="fas fa-apple-alt me-2"></i>Bentuk Buah
+                                </label>
+                                <select class="form-select" name="form_type" required>
+                                    {% for form in fruit_forms %}
+                                    <option value="{{ form }}">{{ form }}</option>
+                                    {% endfor %}
+                                </select>
+                            </div>
+                            <div class="mb-4">
+                                <label class="form-label">
+                                    <i class="fas fa-chart-line me-2"></i>Yield
+                                </label>
+                                <input type="number" class="form-control" name="yield_val" 
+                                       step="0.1" min="0.1" value="1.0" required>
+                            </div>
+                            <div class="mb-4">
+                                <label class="form-label">
+                                    <i class="fas fa-dollar-sign me-2"></i>Cup Equivalent Price
+                                </label>
+                                <input type="number" class="form-control" name="cup_price" 
+                                       step="0.1" min="0.1" value="2.0" required>
+                            </div>
+                            <button type="submit" class="btn btn-primary w-100">
+                                <i class="fas fa-calculator me-2"></i>Prediksi Harga
+                            </button>
+                        </form>
+                    </div>
+                </div>
+
+                <!-- Loading -->
+                <div class="loading text-center mb-4">
+                    <div class="spinner-border text-primary" role="status">
+                        <span class="visually-hidden">Loading...</span>
+                    </div>
+                </div>
+
+                <!-- Result Card -->
+                <div class="card d-none fade-in" id="resultCard">
+                    <div class="card-body p-4 text-center">
+                        <h5 class="card-title mb-4">
+                            <i class="fas fa-chart-bar me-2"></i>Hasil Prediksi
+                        </h5>
+                        <div class="prediction-value mb-3" id="predictionResult">$0.00</div>
+                        <p class="text-muted" id="confidenceInterval">
+                            95% Confidence Interval: $0.00 - $0.00
+                        </p>
+                    </div>
+                </div>
+
+                <!-- Instructions -->
+                <div class="card mt-4 fade-in" style="animation-delay: 0.4s;">
+                    <div class="card-body">
+                        <h5 class="card-title">
+                            <i class="fas fa-info-circle me-2"></i>Cara Penggunaan
+                        </h5>
+                        <ol class="mb-0">
+                            <li>Pilih bentuk buah dari dropdown</li>
+                            <li>Masukkan nilai yield (min: 0.1)</li>
+                            <li>Masukkan cup equivalent price (min: 0.1)</li>
+                            <li>Klik tombol "Prediksi Harga"</li>
+                            <li>Lihat hasil prediksi dan interval kepercayaan</li>
+                        </ol>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Bootstrap JS -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
+    
+    <!-- Custom JS -->
+    <script>
+        // Theme Toggle
+        const themeToggle = document.getElementById('themeToggle');
+        const html = document.documentElement;
+        const themeIcon = themeToggle.querySelector('i');
+
+        function toggleTheme() {
+            if (html.getAttribute('data-bs-theme') === 'light') {
+                html.setAttribute('data-bs-theme', 'dark');
+                themeIcon.classList.remove('fa-sun');
+                themeIcon.classList.add('fa-moon');
+            } else {
+                html.setAttribute('data-bs-theme', 'light');
+                themeIcon.classList.remove('fa-moon');
+                themeIcon.classList.add('fa-sun');
+            }
+        }
+
+        themeToggle.addEventListener('click', toggleTheme);
+
+        // Form Submission
+        document.getElementById('predictionForm').addEventListener('submit', async (e) => {
+            e.preventDefault();
+            
+            document.querySelector('.loading').style.display = 'block';
+            document.getElementById('resultCard').classList.add('d-none');
+            
+            const formData = new FormData(e.target);
+            const data = {
+                form_type: formData.get('form_type'),
+                yield_val: parseFloat(formData.get('yield_val')),
+                cup_price: parseFloat(formData.get('cup_price'))
+            };
+
+            try {
+                const response = await fetch('/predict', {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json',
+                    },
+                    body: JSON.stringify(data)
+                });
+
+                const result = await response.json();
+                
+                document.querySelector('.loading').style.display = 'none';
+                
+                if (result.success) {
+                    document.getElementById('resultCard').classList.remove('d-none');
+                    document.getElementById('predictionResult').textContent = 
+                        `$${result.prediction.toFixed(2)}`;
+                    document.getElementById('confidenceInterval').textContent = 
+                        `95% Confidence Interval: $${result.ci_lower.toFixed(2)} - $${result.ci_upper.toFixed(2)}`;
+                } else {
+                    alert('Error: ' + result.error);
+                }
+            } catch (error) {
+                document.querySelector('.loading').style.display = 'none';
+                alert('Error: ' + error.message);
+            }
+        });
+    </script>
+</body>
+</html>
