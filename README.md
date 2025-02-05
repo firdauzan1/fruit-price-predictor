@@ -30,12 +30,6 @@ Aplikasi web modern untuk memprediksi harga buah menggunakan Machine Learning de
 project/ ├── app.py # FastAPI application ├── templates/
 │ └── index.html # HTML template dengan dark/light mode ├── static/ # Static files folder └── model/ # Model files ├── fruit_price_predictor.joblib ├── scaler.joblib └── form_encoder.joblib
 
-## 🚀 Cara Menjalankan Aplikasi
-
-1. Install dependencies:
-```bash
-pip install -r requirements.txt
-
 💡 Cara Penggunaan
 
 Pilih bentuk buah dari dropdown menu
@@ -66,3 +60,10 @@ Buat Pull Request
 Pastikan semua file model (.joblib) tersedia di folder model/
 Aplikasi membutuhkan koneksi internet untuk memuat CDN (Bootstrap, Font Awesome)
 Minimal Python 3.7 atau lebih tinggi
+
+## 🚀 Cara Menjalankan Aplikasi
+
+1. Install dependencies:
+```bash
+pip install -r requirements.txt
+
