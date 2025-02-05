@@ -1,64 +1,60 @@
-# 🍎 Fruit Price Predictor
+Modern web application for predicting fruit prices using Machine Learning with an interactive UI feature.
 
-Aplikasi web modern untuk memprediksi harga buah menggunakan Machine Learning dengan fitur UI yang interaktif.
+✨ Features :
 
-## ✨ Fitur
+🎯 High accuracy fruit price predictions
+📊 95% confidence interval for each prediction
+🌓 Dark/Light mode
+💫 Smooth animations and transitions
+📱 Responsive design for all screen sizes
+🎨 Modern UI with glassmorphism effects
 
-- 🎯 Prediksi harga buah dengan akurasi tinggi
-- 📊 Interval kepercayaan 95% untuk setiap prediksi
-- 🌓 Mode Gelap/Terang
-- 💫 Animasi dan transisi halus
-- 📱 Responsive design untuk semua ukuran layar
-- 🎨 UI Modern dengan efek glassmorphism
+🏗️ Technologies Used :
 
-## 🏗️ Teknologi yang Digunakan
+Backend:
+FastAPI (Python web framework)
+Scikit-learn (Machine Learning)
+Pandas & NumPy (Data processing)
+Joblib (Model serialization)
 
-- **Backend:**
-  - FastAPI (Python web framework)
-  - Scikit-learn (Machine Learning)
-  - Pandas & NumPy (Data processing)
-  - Joblib (Model serialization)
+Frontend:
+HTML5 & CSS3
+Bootstrap 5.3
+Font Awesome icons
+JavaScript (Vanilla)
 
-- **Frontend:**
-  - HTML5 & CSS3
-  - Bootstrap 5.3
-  - Font Awesome icons
-  - JavaScript (Vanilla)
+💡 How to Use : 
 
-💡 Cara Penggunaan
+Select the type of fruit from the dropdown menu.
+Enter the yield value (minimum 0.1).
+Enter the cup equivalent price (minimum 0.1).
+Click the "Predict Price" button.
+View the prediction results and confidence interval.
 
-Pilih bentuk buah dari dropdown menu
-Masukkan nilai yield (minimal 0.1)
-Masukkan cup equivalent price (minimal 0.1)
-Klik tombol "Prediksi Harga"
-Lihat hasil prediksi dan interval kepercayaan
+🎨 UI Features : 
 
-🎨 Fitur UI
+Dark/Light Mode: Toggle in the top right corner to change themes.
+Animations: Fade-in when the page loads and hover effects.
+Glassmorphism: Modern transparency effects on cards.
+Loading State: Animated spinner while processing predictions.
+Responsive: Optimal display on desktop and mobile.
 
-Dark/Light Mode: Toggle di pojok kanan atas untuk mengubah tema
-Animasi: Fade-in saat halaman dimuat dan hover effects
-Glassmorphism: Efek transparansi modern pada cards
-Loading State: Spinner animasi saat memproses prediksi
-Responsive: Tampilan optimal di desktop dan mobile
+🤝 Contribution : 
 
-🤝 Kontribusi
+Contributions are always welcome! Here are the steps:
+Fork this repository.
+Create a new branch (git checkout -b new-feature).
+Commit your changes (git commit -m 'Add new feature').
+Push to your branch (git push origin new-feature).
+Create a Pull Request.
 
-Kontribusi selalu diterima! Berikut langkah-langkahnya:
+📝 Notes :
 
-Fork repository ini
-Buat branch baru (git checkout -b fitur-baru)
-Commit perubahan (git commit -m 'Menambah fitur baru')
-Push ke branch (git push origin fitur-baru)
-Buat Pull Request
+Ensure all model files (.joblib) are available in the model/ folder.
+The application requires an internet connection to load CDN (Bootstrap, Font Awesome).
+Minimum Python version is 3.7 or higher.
 
-📝 Catatan
-Pastikan semua file model (.joblib) tersedia di folder model/
-Aplikasi membutuhkan koneksi internet untuk memuat CDN (Bootstrap, Font Awesome)
-Minimal Python 3.7 atau lebih tinggi
-
-🚀 Cara Menjalankan Aplikasi
+🚀 How to Run the Application: 
 
 Install dependencies:
-```bash
 pip install -r requirements.txt
-
