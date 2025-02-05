@@ -1,4 +1,4 @@
-Modern web application for predicting fruit prices using Machine Learning with an interactive UI feature.
+# Modern web application for predicting fruit prices using Machine Learning with an interactive UI feature.
 
 ✨ Features :
 
