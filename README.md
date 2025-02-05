@@ -2,12 +2,7 @@
 
 ✨ Features :
 
-🎯 High accuracy fruit price predictions
-📊 95% confidence interval for each prediction
-🌓 Dark/Light mode
-💫 Smooth animations and transitions
-📱 Responsive design for all screen sizes
-🎨 Modern UI with glassmorphism effects
+🎯 High accuracy fruit price predictions 📊 95% confidence interval for each prediction 🌓 Dark/Light mode 💫 Smooth animations and transitions 📱 Responsive design for all screen sizes 🎨 Modern UI with glassmorphism effects
 
 🏗️ Technologies Used :
 
